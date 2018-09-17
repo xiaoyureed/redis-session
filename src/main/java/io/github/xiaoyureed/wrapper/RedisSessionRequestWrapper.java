@@ -29,7 +29,7 @@ public class RedisSessionRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public HttpSession getSession(boolean create) {
         //return super.getSession(create);
-        Session session = this.requestEvent.getSessionRepository().getSession(requestEvent.getRequest());
+        Session session = this.requestEvent.getSessionRepository().getSession(requestEvent.getRequest(), create);
 
         if (session == null) {
             return null;
@@ -45,5 +45,10 @@ public class RedisSessionRequestWrapper extends HttpServletRequestWrapper {
         sessionWrapper.writeCookieToResponse(requestEvent.getResponse());
 
         return sessionWrapper;
+    }
+
+    @Override
+    public HttpSession getSession() {
+        return this.getSession(true);
     }
 }
