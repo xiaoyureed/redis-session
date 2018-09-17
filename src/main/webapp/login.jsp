@@ -12,7 +12,7 @@
 <body>
 
 <div class="container">
-    <p>debug ---- baseUri: ${uri}</p>
+    <p>debug ---- uri: ${uri}</p>
     <form id="login-form">
         <input type="text" placeholder="name" name="name" required autofocus>
         <input type="password" placeholder="pass" name="pass" required>

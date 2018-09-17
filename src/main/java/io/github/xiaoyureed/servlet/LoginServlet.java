@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * login servlet
+ * login servlet， restful
  */
 public class LoginServlet extends HttpServlet {
 

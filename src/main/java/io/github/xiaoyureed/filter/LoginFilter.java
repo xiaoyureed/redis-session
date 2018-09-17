@@ -1,5 +1,6 @@
 package io.github.xiaoyureed.filter;
 
+import io.github.xiaoyureed.wrapper.RedisSessionRequestWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,20 +32,20 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 
 
-        HttpServletRequest req = (HttpServletRequest) request;
+        RedisSessionRequestWrapper req = (RedisSessionRequestWrapper) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
         String reqUrl = req.getRequestURL().toString();
         String reqUri = req.getRequestURI();
-        String jspUri = reqUrl.substring(0, reqUrl.lastIndexOf(reqUri));
+        String baseUri = reqUrl.substring(0, reqUrl.lastIndexOf(reqUri));
+        String baseUriWithoutTailSlash = baseUri.endsWith("/") ? baseUri.substring(0, baseUri.length() - 1) : baseUri;
+        String contextPath = req.getContextPath();
         // eg: /login
-        req.setAttribute("uri", jspUri.endsWith("/") ?
-                jspUri.substring(0, jspUri.length() - 1) : jspUri);
+        req.setAttribute("uri", baseUriWithoutTailSlash + contextPath);
 
         HttpSession session = req.getSession(false);
         // already login, let her go
-        if (session != null
-                && session.getAttribute("name") != null) {
+        if (session != null) {
             chain.doFilter(req, resp);
         }
         // comes from "login" page, let her go
