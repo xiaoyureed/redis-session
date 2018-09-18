@@ -100,4 +100,28 @@ public class PropertiesUtils {
             }
         }
     }
+
+    /**
+     * get class loader
+     * @return
+     */
+    private static ClassLoader getDefault() {
+        ClassLoader loader = null;
+        try {
+            loader = Thread.currentThread().getContextClassLoader();
+        } catch (Exception e) {
+        }
+        if (loader == null) {
+            loader = PropertiesUtils.class.getClassLoader();
+            if (loader == null) {
+                try {
+                    // getClassLoader() returning null indicates the bootstrap ClassLoader
+                    loader = ClassLoader.getSystemClassLoader();
+                } catch (Exception e) {
+                    // Cannot access system ClassLoader - oh well, maybe the caller can live with null...
+                }
+            }
+        }
+        return loader;
+    }
 }

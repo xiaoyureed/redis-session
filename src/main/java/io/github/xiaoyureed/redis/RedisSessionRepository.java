@@ -48,7 +48,9 @@ public class RedisSessionRepository implements SessionRepository<Session> {
                 }
             }
         }
-        session.setLastAccessTime(System.currentTimeMillis());
+        if (session != null) {
+            session.setLastAccessTime(System.currentTimeMillis());
+        }
         return session;
     }
 
