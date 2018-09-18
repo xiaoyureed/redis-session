@@ -27,5 +27,5 @@ config.properties 中配置好 redis, session 相关的属性, 当然可以先�
 账户/密码: root/123
 
 
-under distributed environment ， the default session management in servlet  is not suitable. for example, one person who login to one node of the system first wouldn't be accepted by other node because the session store just in one node, not all system.Custom Servlet and store session by redis is one of the solution.
+under distributed environment ， the default session management in servlet  is not suitable. for example, one person who login to one node of the system first wouldn't be accepted by other node because the session was stored just in one node, not all system.Custom Servlet and store session by redis is one of the solution.
 
