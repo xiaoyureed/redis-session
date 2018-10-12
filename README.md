@@ -1,4 +1,8 @@
 # redis-session
+
+it's not suitable for us to manage session useing the traditional way in servlet under distributed environment. for example, one person who login to one node of the system first wouldn't be accepted by other node because the session was stored just in one node, not all system.Custom Servlet and store session by redis is one of the solution.
+
+
 在分布式环境下, servlet 默认的会话管理就不合适了, 比如 user 登陆到一台机器上, 
 如果后续的访问被分配到其他机器, 在这些机器上他会被视作未登录状态. 如果将会话(session)单独存储比如存储到 redis 这种内存数据库中
 则可以解决这个问题.
@@ -25,7 +29,3 @@ config.properties 中配置好 redis, session 相关的属性, 当然可以先�
 👉 localhost:8082/redis-session
 
 账户/密码: root/123
-
-
-under distributed environment ， the default session management in servlet  is not suitable. for example, one person who login to one node of the system first wouldn't be accepted by other node because the session was stored just in one node, not all system.Custom Servlet and store session by redis is one of the solution.
-
